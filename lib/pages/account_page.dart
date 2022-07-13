@@ -5,6 +5,26 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: Text("Account Page"),);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Username: zubair9099",
+            style: TextStyle(
+              fontSize: 20,
+            )
+          ),
+          SizedBox(height: 20,),
+          Text(
+            "Email: zubair@gmail.com",
+            style: TextStyle(
+              fontSize: 20,
+            ),
+          ),
+        ]
+      ),
+    );
   }
 }
