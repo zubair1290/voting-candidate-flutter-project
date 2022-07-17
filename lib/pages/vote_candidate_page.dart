@@ -49,7 +49,7 @@ class VoteCandidatePage extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 10,),
+                      const SizedBox(height: 10,),
                       Text(
                         "Nama Presiden",
                         style: TextStyle(
@@ -57,14 +57,14 @@ class VoteCandidatePage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      const SizedBox(height: 10,),
                       Text(
                         "Nama Wakil",
                         style: TextStyle(
                           fontSize: 20,
                         ),
                       ),
-                      SizedBox(height: 18,),
+                      const SizedBox(height: 18,),
                       Container(
                         alignment: Alignment.centerRight,
                         child: ElevatedButton(

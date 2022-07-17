@@ -16,7 +16,7 @@ class AccountPage extends StatelessWidget {
               fontSize: 20,
             )
           ),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
           Text(
             "Email: zubair@gmail.com",
             style: TextStyle(

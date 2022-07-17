@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "candidates",
+  "info": {
+    "singularName": "candidate",
+    "pluralName": "candidates",
+    "displayName": "Candidate",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "head": {
+      "type": "string",
+      "required": true
+    },
+    "vice": {
+      "type": "string",
+      "required": true
+    },
+    "head_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "vice_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "election_name": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::election.election"
+    },
+    "number_of_votes": {
+      "type": "biginteger",
+      "required": true,
+      "min": "0",
+      "default": "0"
+    }
+  }
+}
