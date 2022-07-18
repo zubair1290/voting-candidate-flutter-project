@@ -5,6 +5,8 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var textStyle = const TextStyle(fontSize: 20);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 30),
       child: Column(
@@ -12,16 +14,12 @@ class AccountPage extends StatelessWidget {
         children: [
           Text(
             "Username: zubair9099",
-            style: TextStyle(
-              fontSize: 20,
-            )
+            style: textStyle
           ),
           const SizedBox(height: 20,),
           Text(
             "Email: zubair@gmail.com",
-            style: TextStyle(
-              fontSize: 20,
-            ),
+            style: textStyle,
           ),
         ]
       ),

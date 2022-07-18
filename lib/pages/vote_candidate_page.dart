@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
 class VoteCandidatePage extends StatelessWidget {
-  const VoteCandidatePage({Key? key}) : super(key: key);
+  final List<dynamic> dataVote;
+
+  const VoteCandidatePage({
+    Key? key,
+    required this.dataVote,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    const String url = "http://localhost:1337";
     return SizedBox(
-      child: ListView.builder(
-        itemCount: 10,
+      child: (dataVote.isNotEmpty) ? ListView.builder(
+        itemCount: dataVote.length,
         itemBuilder: (ctx, index) {
           return Card(
             child: Container(
@@ -17,32 +23,41 @@ class VoteCandidatePage extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Expanded(
-                        child: Container(
-                          height: 220,
-                          // width: 180,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Theme.of(context).primaryColor,
-                              width: 2,
-                            ),
+                      // Expanded(
+                      //   child: Container(
+                      //     // height: 220,
+                      //     // width: 180,
+                      //     decoration: BoxDecoration(
+                      //       border: Border.all(
+                      //         color: Theme.of(context).primaryColor,
+                      //         width: 2,
+                      //       ),
+                      //     ),
+                      //     child: Image.network(
+                      //       'http://localhost:1337/uploads/small_Joko_Widodo_presidential_portrait_2016_0253d19b01.jpg', 
+                      //       height: 220,
+                      //     ),
+                      //   ),
+                      // ),
+                      Container(
+                        // height: 220,
+                        // width: 180,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Theme.of(context).primaryColor,
+                            width: 2,
                           ),
-                          child: Text("Image Presiden"),
                         ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Container(
-                          height: 220,
-                          // width: 180,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Theme.of(context).primaryColor,
-                              width: 2,
-                            ),
+                        child: Row(children: [
+                          Image.network(
+                            url + dataVote[index]["attributes"]["head_image"]["data"]["attributes"]["url"],
+                            height: 220,
                           ),
-                          child: Text("Image Wakil"),
-                        ),
+                          Image.network(
+                            url + dataVote[index]["attributes"]["vice_image"]["data"]["attributes"]["url"],
+                            height: 220,
+                          ),
+                        ],) 
                       ),
                     ],
                   ),
@@ -51,16 +66,16 @@ class VoteCandidatePage extends StatelessWidget {
                     children: [
                       const SizedBox(height: 10,),
                       Text(
-                        "Nama Presiden",
-                        style: TextStyle(
+                        dataVote[index]["attributes"]["head"],
+                        style: const TextStyle(
                           fontSize: 26,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 10,),
                       Text(
-                        "Nama Wakil",
-                        style: TextStyle(
+                        dataVote[index]["attributes"]["vice"],
+                        style: const TextStyle(
                           fontSize: 20,
                         ),
                       ),
@@ -72,8 +87,8 @@ class VoteCandidatePage extends StatelessWidget {
                             backgroundColor: MaterialStateProperty.all(Colors.white70), 
                             padding: MaterialStateProperty.all(EdgeInsets.zero),
                             foregroundColor: MaterialStateProperty.all(Colors.black),
-                            fixedSize: MaterialStateProperty.all(Size(40, 40)),
-                            textStyle: MaterialStateProperty.all(TextStyle(
+                            fixedSize: MaterialStateProperty.all(const Size(40, 40)),
+                            textStyle: MaterialStateProperty.all(const TextStyle(
                               fontSize: 20,
                             )),
                           ),
@@ -82,7 +97,11 @@ class VoteCandidatePage extends StatelessWidget {
                               context: context, 
                               builder: (BuildContext ctx) => AlertDialog(
                                 title: const Text("Vote"),
-                                content: const Text("Do you want to vote this president?"),
+                                content: Text("Do you want to vote ${
+                                  dataVote[index]["attributes"]["head"]
+                                } and ${
+                                  dataVote[index]["attributes"]["vice"]
+                                }"),
                                 actions: [
                                   TextButton(
                                     onPressed: () => Navigator.pop(context, 'Cancel'), 
@@ -96,7 +115,7 @@ class VoteCandidatePage extends StatelessWidget {
                               )
                             );
                           }, 
-                          child: Text("Vote"),
+                          child: const Text("Vote"),
                         ),
                       )
                     ],
@@ -106,7 +125,7 @@ class VoteCandidatePage extends StatelessWidget {
             ),
           );
         }
-      ),
+      ) : const Center(child: Text("Empty Candidates")),
     );
   }
 }
