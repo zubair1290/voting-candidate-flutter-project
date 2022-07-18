@@ -6,7 +6,17 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class Nav extends StatefulWidget {
-  const Nav({Key? key, required this.title}) : super(key: key);
+  final int userId;
+  final String username;
+  final String email;
+
+  const Nav(
+    {Key? key, 
+    required this.title,
+    required this.userId,
+    required this.username,
+    required this.email
+  }) : super(key: key);
 
   final String title;
 
@@ -17,6 +27,7 @@ class Nav extends StatefulWidget {
 class _NavState extends State<Nav> {
   int _currIdxBtmNavBar = 0;
   dynamic json = "";
+
   dynamic getCandidates() async {
     var url = Uri.parse("http://localhost:1337/api/candidates?populate=*");
     var response = await http.get(url);
@@ -26,6 +37,26 @@ class _NavState extends State<Nav> {
       });
     } 
   }
+  Future<bool> voteCandidates({required dynamic user, required dynamic candidate}) async {
+    var url = Uri.parse("http://localhost:1337/api/votes");
+    var response = await http.post(url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode({
+        "data": {
+          "user": user,
+          "candidate": candidate
+        }
+      }),
+    );
+    print("response statusCode ${response.statusCode}");
+    if (response.statusCode == 200) {
+      return true;
+    } 
+    return false;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -37,12 +68,18 @@ class _NavState extends State<Nav> {
     List<dynamic> dataVote = json != "" ? json["data"]: [];
     List<Widget> pages = [
       VoteCandidatePage(
-        dataVote: dataVote
+        userId: widget.userId,
+        username: widget.username,
+        dataVote: dataVote,
+        voteCandidatesFunc: voteCandidates
       ),
       VoteStatisticPage(
-        dataVote: dataVote       
+        dataVote: dataVote
       ),
-      const AccountPage(),
+      AccountPage(
+        username: widget.username,
+        email: widget.email
+      ),
     ];
     return Scaffold(
       appBar: AppBar(

@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AccountPage extends StatelessWidget {
-  const AccountPage({Key? key}) : super(key: key);
+  final String username;
+  final String email;
+
+  const AccountPage({
+    Key? key,
+    required this.username,
+    required this.email
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +20,12 @@ class AccountPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Username: zubair9099",
+            "Username: $username",
             style: textStyle
           ),
           const SizedBox(height: 20,),
           Text(
-            "Email: zubair@gmail.com",
+            "Email: $email",
             style: textStyle,
           ),
         ]

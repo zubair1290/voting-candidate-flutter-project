@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:voting/widgets/candidate_img.dart';
+import 'package:voting/widgets/vote_btn.dart';
 
 class VoteCandidatePage extends StatelessWidget {
+  final int userId;
+  final String username;
   final List<dynamic> dataVote;
+  final Function voteCandidatesFunc;
 
   const VoteCandidatePage({
     Key? key,
+    required this.userId,
+    required this.username,
     required this.dataVote,
+    required this.voteCandidatesFunc
   }) : super(key: key);
 
   @override
@@ -21,46 +29,7 @@ class VoteCandidatePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      // Expanded(
-                      //   child: Container(
-                      //     // height: 220,
-                      //     // width: 180,
-                      //     decoration: BoxDecoration(
-                      //       border: Border.all(
-                      //         color: Theme.of(context).primaryColor,
-                      //         width: 2,
-                      //       ),
-                      //     ),
-                      //     child: Image.network(
-                      //       'http://localhost:1337/uploads/small_Joko_Widodo_presidential_portrait_2016_0253d19b01.jpg', 
-                      //       height: 220,
-                      //     ),
-                      //   ),
-                      // ),
-                      Container(
-                        // height: 220,
-                        // width: 180,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).primaryColor,
-                            width: 2,
-                          ),
-                        ),
-                        child: Row(children: [
-                          Image.network(
-                            url + dataVote[index]["attributes"]["head_image"]["data"]["attributes"]["url"],
-                            height: 220,
-                          ),
-                          Image.network(
-                            url + dataVote[index]["attributes"]["vice_image"]["data"]["attributes"]["url"],
-                            height: 220,
-                          ),
-                        ],) 
-                      ),
-                    ],
-                  ),
+                  CandidateImage(url: url, dataVote: dataVote, index: index),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -80,44 +49,12 @@ class VoteCandidatePage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 18,),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.white70), 
-                            padding: MaterialStateProperty.all(EdgeInsets.zero),
-                            foregroundColor: MaterialStateProperty.all(Colors.black),
-                            fixedSize: MaterialStateProperty.all(const Size(40, 40)),
-                            textStyle: MaterialStateProperty.all(const TextStyle(
-                              fontSize: 20,
-                            )),
-                          ),
-                          onPressed: () {
-                            showDialog(
-                              context: context, 
-                              builder: (BuildContext ctx) => AlertDialog(
-                                title: const Text("Vote"),
-                                content: Text("Do you want to vote ${
-                                  dataVote[index]["attributes"]["head"]
-                                } and ${
-                                  dataVote[index]["attributes"]["vice"]
-                                }"),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context, 'Cancel'), 
-                                    child: const Text("Cancel"),
-                                  ),
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context, 'Ok'), 
-                                    child: const Text("Ok"),
-                                  ),
-                                ],
-                              )
-                            );
-                          }, 
-                          child: const Text("Vote"),
-                        ),
-                      )
+                      VoteBtn(
+                        userId: userId, 
+                        dataVote: dataVote, 
+                        index: index, 
+                        voteCandidatesFunc: voteCandidatesFunc
+                      ),
                     ],
                   ),
                 ],

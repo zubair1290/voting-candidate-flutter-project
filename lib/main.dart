@@ -15,7 +15,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Nav(title: 'Voting Candidate'),
+      home: const Nav(
+        title: 'Voting Candidate',
+        userId: 2,
+        username: "zubair1011",
+        email: "zubair1011@gmail.com"
+      ),
     );
   }
 }

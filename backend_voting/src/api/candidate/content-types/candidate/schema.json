@@ -46,6 +46,12 @@
       "required": true,
       "min": "0",
       "default": "0"
+    },
+    "votes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::vote.vote",
+      "mappedBy": "candidate"
     }
   }
 }

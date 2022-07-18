@@ -16,13 +16,13 @@ class VoteStatisticPage extends StatelessWidget {
     if (dataVote.isNotEmpty) {
       for (int i = 0; i < dataVote.length; i++) {
         pieChartSections.add(PieChartSectionData(
-          title: "Calon ${i+1}: ${dataVote[i]["attributes"]["number_of_votes"]} suara",
-          value: double.parse(dataVote[i]["attributes"]["number_of_votes"]),
+          title: "Calon ${i+1}: ${dataVote[i]["attributes"]["votes"]["data"].length} suara",
+          value: dataVote[i]["attributes"]["votes"]["data"].length,
           color: Color.fromARGB(
-            math.Random().nextInt(256), 
+            255, 
             math.Random().nextInt(256), 
             math.Random().nextInt(256),
-            255
+            math.Random().nextInt(256),
           ),
         ));
       }
@@ -32,18 +32,6 @@ class VoteStatisticPage extends StatelessWidget {
       child: PieChart(
         PieChartData(
           sections: pieChartSections,
-          // [
-          //   PieChartSectionData(
-          //     title: "Calon 1: ${data} suara",
-          //     value: 10,
-          //     color: Colors.red,
-          //   ),
-          //   PieChartSectionData(
-          //     title: "Calon 2: 15 suara",
-          //     value: 15,
-          //     color: Colors.blue,
-          //   ),
-          // ],
         )
       ),
     );
